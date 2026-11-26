@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} — GharMitra{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="wrap"><span class="eyebrow">{{ eyebrow }}</span><h1>{{ title }}</h1></div></section>
+<section class="wrap prose-page">{% for paragraph in paragraphs %}<p>{{ paragraph }}</p>{% endfor %}<a class="arrow-link" href="{{ url_for('home') }}">Back to home <span>→</span></a></section>
+{% endblock %}

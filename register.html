@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Join GharMitra — Register{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="wrap"><span class="eyebrow">Grow with your neighbourhood</span><h1>{% if form_type %}Register as a {{ form_type }}{% else %}Join the GharMitra community{% endif %}</h1><p>Choose how you’d like to get started. New provider profiles are reviewed before being listed.</p></div></section>
+<section class="wrap register-wrap">
+  {% if not form_type %}
+    <div class="role-grid"><a class="role-card" href="{{ url_for('register_customer') }}"><span class="role-icon">⌂</span><h2>I'm looking for home help</h2><p>Create an account to save workers and send demo work requests.</p><span class="card-cta">Create customer account →</span></a><a class="role-card" href="{{ url_for('register_worker') }}"><span class="role-icon">✳</span><h2>I'm a service professional</h2><p>Help local households find your skills and services.</p><span class="card-cta">Register as a worker →</span></a><a class="role-card" href="{{ url_for('register_shop') }}"><span class="role-icon">▤</span><h2>I run a material shop</h2><p>Make your shop and building supplies easier to discover.</p><span class="card-cta">Register your shop →</span></a></div>
+  {% elif form_type == "customer" %}
+    <form class="form-card auth-card" method="post">
+      <h2>Customer account</h2><p class="form-intro">Create an account to save workers and send demo requests.</p>
+      <label class="field"><span>Full name *</span><input name="name" required value="{{ form.get('name', '') }}"></label>
+      <label class="field"><span>Mobile number *</span><input name="mobile" type="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required value="{{ form.get('mobile', '') }}" placeholder="10-digit number"></label>
+      <label class="field"><span>Password * (at least 8 characters)</span><input name="password" type="password" minlength="8" autocomplete="new-password" required></label>
+      <button class="button button-full" type="submit">Create account</button><p class="form-foot">Already registered? <a href="{{ url_for('login') }}">Log in</a></p>
+    </form>
+  {% else %}
+    <form class="form-card" method="post" enctype="multipart/form-data">
+      <h2>{{ "Worker" if form_type == "worker" else "Shop" }} details</h2><p class="form-intro">Fields marked * are required. Your profile remains pending until approved.</p>
+      <div class="form-grid">
+        {% if form_type == "worker" %}
+          <label class="field"><span>Full name *</span><input name="name" required value="{{ form.get('name', '') }}"></label>
+        {% else %}
+          <label class="field"><span>Shop name *</span><input name="name" required value="{{ form.get('name', '') }}"></label>
+          <label class="field"><span>Owner name *</span><input name="owner_name" required value="{{ form.get('owner_name', '') }}"></label>
+        {% endif %}
+        <label class="field"><span>Mobile number *</span><input name="mobile" type="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required value="{{ form.get('mobile', '') }}" placeholder="10-digit number"></label>
+        <label class="field"><span>{{ "Service category" if form_type == "worker" else "Shop category" }} *</span><select name="category" required><option value="">Choose a category</option>{% for item in (["Electrician", "Plumber", "Mistri", "Carpenter", "Painter", "Construction worker", "Other"] if form_type == "worker" else ["Cement", "Bricks", "Sand", "Stone", "Paint", "Electrical", "Plumbing material", "Hardware", "Other"]) %}<option {% if form.get('category') == item %}selected{% endif %}>{{ item }}</option>{% endfor %}</select></label>
+        {% if form_type == "worker" %}<label class="field"><span>Experience *</span><input name="experience" required value="{{ form.get('experience', '') }}" placeholder="e.g. 5 years"></label>{% endif %}
+        <label class="field"><span>City *</span><input name="city" required value="{{ form.get('city', '') }}"></label>
+        <label class="field"><span>Area or locality *</span><input name="area" required value="{{ form.get('area', '') }}"></label>
+        <label class="field"><span>PIN code *</span><input name="pincode" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required value="{{ form.get('pincode', '') }}"></label>
+        <label class="field"><span>Available working hours *</span><input name="hours" required value="{{ form.get('hours', '') }}" placeholder="e.g. Mon–Sat, 9 AM–6 PM"></label>
+        <label class="field field-wide"><span>Full address *</span><input name="address" required value="{{ form.get('address', '') }}"></label>
+        <label class="field field-wide"><span>About your {{ "work" if form_type == "worker" else "shop" }} *</span><textarea name="description" rows="4" required>{{ form.get('description', '') }}</textarea></label>
+        <label class="field field-wide"><span>Services or products (comma-separated)</span><input name="services" value="{{ form.get('services', '') }}" placeholder="e.g. wiring, fan installation"></label>
+        {% if form_type == "worker" %}<label class="field field-wide"><span>Profile image (JPG, PNG, WEBP; max 5 MB)</span><input name="image" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"></label>{% endif %}
+        <label class="field field-wide"><span>Password * (at least 8 characters)</span><input name="password" type="password" minlength="8" autocomplete="new-password" required></label>
+      </div>
+      <button class="button" type="submit">Submit for review <span>→</span></button><p class="form-foot">Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+    </form>
+  {% endif %}
+</section>
+{% endblock %}

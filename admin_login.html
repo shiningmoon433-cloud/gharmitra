@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Administrator login — GharMitra{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="wrap"><span class="eyebrow">Administration</span><h1>GharMitra admin</h1><p>Review provider listings and platform activity.</p></div></section>
+<section class="wrap auth-wrap">
+  <form class="form-card auth-card" method="post">
+    <h2>Admin access</h2>
+    <label class="field"><span>Admin mobile number</span><input name="mobile" type="tel" inputmode="numeric" maxlength="10" required></label>
+    <label class="field"><span>Password</span><input name="password" type="password" required></label>
+    <button class="button button-full" type="submit">Open admin dashboard</button>
+  </form>
+</section>
+{% endblock %}

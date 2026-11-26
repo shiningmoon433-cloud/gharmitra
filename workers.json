@@ -1,0 +1,53 @@
+[
+  {
+    "id": "worker-rajesh-kumar",
+    "name": "Rajesh Kumar",
+    "mobile": "9876543210",
+    "category": "Electrician",
+    "experience": "8 years",
+    "city": "Jaipur",
+    "area": "Vaishali Nagar",
+    "pincode": "302021",
+    "address": "Vaishali Nagar, Jaipur, Rajasthan",
+    "description": "Home wiring, fan and light installation, and electrical repairs.",
+    "services": ["Home wiring", "Electrical repairs", "Fan installation"],
+    "hours": "Mon–Sat, 9:00 AM–6:00 PM",
+    "image": "",
+    "status": "approved",
+    "owner_id": null
+  },
+  {
+    "id": "worker-sunil-sharma",
+    "name": "Sunil Sharma",
+    "mobile": "9876543211",
+    "category": "Plumber",
+    "experience": "6 years",
+    "city": "Jaipur",
+    "area": "Mansarovar",
+    "pincode": "302020",
+    "address": "Mansarovar, Jaipur, Rajasthan",
+    "description": "Tap, pipe, bathroom fitting, and water leakage repair.",
+    "services": ["Pipe repair", "Bathroom fittings", "Leak detection"],
+    "hours": "Mon–Sat, 8:00 AM–7:00 PM",
+    "image": "",
+    "status": "approved",
+    "owner_id": null
+  },
+  {
+    "id": "worker-mohan-lal",
+    "name": "Mohan Lal",
+    "mobile": "9876543212",
+    "category": "Mistri",
+    "experience": "12 years",
+    "city": "Jaipur",
+    "area": "Malviya Nagar",
+    "pincode": "302017",
+    "address": "Malviya Nagar, Jaipur, Rajasthan",
+    "description": "Masonry, plastering, tile work, and small construction projects.",
+    "services": ["Masonry", "Plastering", "Tile work"],
+    "hours": "Mon–Sat, 8:00 AM–5:00 PM",
+    "image": "",
+    "status": "approved",
+    "owner_id": null
+  }
+]

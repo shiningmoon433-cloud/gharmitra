@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Manage profile — GharMitra{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="wrap"><span class="eyebrow">Keep your listing current</span><h1>Manage your profile</h1><p>Changes to provider details return the listing to pending review.</p></div></section>
+<section class="wrap register-wrap">
+  <form class="form-card" method="post" enctype="multipart/form-data">
+    <h2>{{ "Worker" if role == "worker" else "Shop" }} details</h2>
+    <div class="form-grid">
+      {% if role == "worker" %}
+        <label class="field"><span>Full name *</span><input name="name" required value="{{ listing.name }}"></label>
+      {% else %}
+        <label class="field"><span>Shop name *</span><input name="name" required value="{{ listing.name }}"></label>
+        <label class="field"><span>Owner name *</span><input name="owner_name" required value="{{ listing.owner_name }}"></label>
+      {% endif %}
+      <label class="field"><span>Mobile number *</span><input name="mobile" type="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" required value="{{ listing.mobile }}"></label>
+      <label class="field"><span>Category *</span><input name="category" required value="{{ listing.category }}"></label>
+      {% if role == "worker" %}<label class="field"><span>Experience *</span><input name="experience" required value="{{ listing.experience }}"></label>{% endif %}
+      <label class="field"><span>City *</span><input name="city" required value="{{ listing.city }}"></label>
+      <label class="field"><span>Area or locality *</span><input name="area" required value="{{ listing.area }}"></label>
+      <label class="field"><span>PIN code *</span><input name="pincode" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required value="{{ listing.pincode }}"></label>
+      <label class="field"><span>Working hours *</span><input name="hours" required value="{{ listing.hours }}"></label>
+      <label class="field field-wide"><span>Address *</span><input name="address" required value="{{ listing.address }}"></label>
+      <label class="field field-wide"><span>Description *</span><textarea name="description" rows="4" required>{{ listing.description }}</textarea></label>
+      <label class="field field-wide"><span>Services or products (comma-separated) *</span><input name="services" required value="{{ listing.services|join(', ') }}"></label>
+      {% if role == "worker" %}<label class="field field-wide"><span>Replace profile image (optional, JPG/PNG/WEBP; max 5 MB)</span><input name="image" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"></label>{% endif %}
+    </div>
+    <button class="button" type="submit">Save changes <span>→</span></button>
+  </form>
+</section>
+{% endblock %}

@@ -1,0 +1,34 @@
+[
+  {
+    "id": "shop-shree-cement",
+    "name": "Shree Cement & Building Supplies",
+    "owner_name": "Amit Jain",
+    "mobile": "9876543220",
+    "category": "Cement",
+    "city": "Jaipur",
+    "area": "Vaishali Nagar",
+    "pincode": "302021",
+    "address": "Main Market, Vaishali Nagar, Jaipur",
+    "description": "Cement, putty, and everyday building supplies.",
+    "services": ["Cement", "Wall putty", "Delivery enquiries"],
+    "hours": "Mon–Sat, 9:00 AM–8:00 PM",
+    "status": "approved",
+    "owner_id": null
+  },
+  {
+    "id": "shop-jaipur-hardware",
+    "name": "Jaipur Hardware House",
+    "owner_name": "Neeraj Gupta",
+    "mobile": "9876543221",
+    "category": "Hardware",
+    "city": "Jaipur",
+    "area": "Mansarovar",
+    "pincode": "302020",
+    "address": "New Sanganer Road, Mansarovar, Jaipur",
+    "description": "Tools, fasteners, plumbing fittings, and home hardware.",
+    "services": ["Hardware", "Plumbing fittings", "Tools"],
+    "hours": "Mon–Sat, 10:00 AM–8:00 PM",
+    "status": "approved",
+    "owner_id": null
+  }
+]

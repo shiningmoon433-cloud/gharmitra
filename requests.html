@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}My requests — GharMitra{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="wrap"><span class="eyebrow">Keep track</span><h1>My requests</h1><p>Follow up on the work requests you’ve sent or received.</p></div></section>
+<section class="wrap request-list">
+  {% if records %}{% for item in records %}<article class="request-card"><div><span class="pill">{{ item.status|title }}</span><h2>{{ item.worker_name }}</h2><p>{{ item.description }}</p><small>{{ item.created_at }} · Contact: {{ item.customer_mobile }}</small></div>
+    {% if role == "worker" and item.status == "pending" %}<div class="request-actions"><form method="post"><input type="hidden" name="request_id" value="{{ item.id }}"><input type="hidden" name="action" value="accepted"><button class="button button-small" type="submit">Accept</button></form><form method="post"><input type="hidden" name="request_id" value="{{ item.id }}"><input type="hidden" name="action" value="rejected"><button class="button button-outline button-small" type="submit">Reject</button></form></div>{% endif %}
+  </article>{% endfor %}
+  {% else %}<div class="empty-state"><span>♡</span><h2>No requests yet</h2><p>{% if role == "worker" %}Requests from customers will appear here.{% else %}When you send a work request, you can follow its status here.{% endif %}</p><a class="button button-outline" href="{{ url_for('workers') }}">Explore workers</a></div>{% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Service categories — GharMitra{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="wrap"><span class="eyebrow">Find your kind of help</span><h1>Browse by category</h1><p>From a quick repair to materials for a bigger project, start with what you need.</p></div></section>
+<section class="section wrap category-page-grid">
+  <div><h2>Home service professionals</h2><div class="category-list">{% for category in worker_categories %}<a href="{{ url_for('workers', category=category) }}"><span>{{ category }}</span><span>Explore →</span></a>{% endfor %}{% for category in ["Carpenter", "Painter", "Construction worker"] if category not in worker_categories %}<a href="{{ url_for('workers', category=category) }}"><span>{{ category }}</span><span>Explore →</span></a>{% endfor %}</div></div>
+  <div><h2>Construction material shops</h2><div class="category-list">{% for category in shop_categories %}<a href="{{ url_for('shops', category=category) }}"><span>{{ category }}</span><span>Explore →</span></a>{% endfor %}{% for category in ["Bricks", "Sand", "Stone", "Paint", "Electrical", "Plumbing material"] if category not in shop_categories %}<a href="{{ url_for('shops', category=category) }}"><span>{{ category }}</span><span>Explore →</span></a>{% endfor %}</div></div>
+</section>
+{% endblock %}

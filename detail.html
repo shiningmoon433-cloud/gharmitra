@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ record.name }} — GharMitra{% endblock %}
+{% block content %}
+<section class="detail-wrap wrap">
+  <a class="back-link" href="{{ url_for('workers' if kind == 'worker' else 'shops') }}">← Back to {{ "workers" if kind == "worker" else "shops" }}</a>
+  <div class="detail-card">
+    <div class="detail-top">
+      {% if kind == "worker" and record.image %}<img class="detail-avatar provider-image" src="{{ url_for('static', filename=record.image) }}" alt="Profile of {{ record.name }}">{% else %}<div class="detail-avatar">{{ record.name[:1] }}</div>{% endif %}
+      <div class="detail-heading"><span class="pill">{{ record.category }}</span><h1>{{ record.name }}</h1><p class="provider-location">⌖ {{ record.area }}, {{ record.city }} · PIN {{ record.pincode }}</p></div>
+      {% if kind == "worker" and logged_in_user and logged_in_user.role == "customer" %}<form action="{{ url_for('saved_workers') }}" method="post"><input type="hidden" name="worker_id" value="{{ record.id }}"><button class="button button-outline" type="submit">{{ "♥ Saved" if saved else "♡ Save worker" }}</button></form>{% endif %}
+    </div>
+    <div class="detail-columns">
+      <div class="detail-main"><h2>About {{ "this professional" if kind == "worker" else "this shop" }}</h2><p>{{ record.description }}</p><h2>Services available</h2><div class="tag-list">{% for service in record.services %}<span>{{ service }}</span>{% else %}<span>{{ record.category }}</span>{% endfor %}</div>
+        {% if kind == "worker" %}<div class="detail-fact"><span>Experience</span><strong>{{ record.experience }}</strong></div>{% endif %}
+        <div class="detail-fact"><span>Working hours</span><strong>{{ record.hours }}</strong></div>
+        <div class="detail-fact"><span>Address</span><strong>{{ record.address }}</strong></div>
+      </div>
+      <aside class="contact-card"><span class="eyebrow">Get in touch</span><h2>Talk about your project</h2><p>Contact this listing to confirm availability and discuss your requirements.</p><a class="button button-full" href="tel:{{ record.mobile }}">Call {{ record.mobile }}</a>
+        {% if kind == "worker" and logged_in_user and logged_in_user.role == "customer" %}<form class="request-form" action="{{ url_for('request_service', worker_id=record.id) }}" method="post"><label class="field"><span>What work do you need?</span><textarea name="description" rows="3" placeholder="Briefly describe the work..." required></textarea></label><button class="button button-outline button-full" type="submit">Send demo request</button></form>{% elif kind == "worker" and not logged_in_user %}<a class="text-link request-login" href="{{ url_for('login') }}">Log in to send a work request</a>{% endif %}
+        <p class="contact-disclaimer">GharMitra does not verify pricing or arrange payment. Please confirm details directly.</p>
+      </aside>
+    </div>
+  </div>
+</section>
+{% endblock %}

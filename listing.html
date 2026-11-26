@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} — GharMitra{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="wrap"><span class="eyebrow">Discover local listings</span><h1>{{ title }}</h1><p>{{ subtitle }}</p></div></section>
+<section class="wrap results-layout">
+  <form class="filter-panel" method="get">
+    <h2>Refine your search</h2>
+    <label class="field"><span>City</span><input name="city" value="{{ request.args.get('city', '') }}" placeholder="e.g. Jaipur"></label>
+    <label class="field"><span>Area or locality</span><input name="area" value="{{ request.args.get('area', '') }}" placeholder="e.g. Vaishali Nagar"></label>
+    <label class="field"><span>PIN code</span><input name="pincode" inputmode="numeric" maxlength="6" value="{{ request.args.get('pincode', '') }}" placeholder="6-digit PIN code"></label>
+    <label class="field"><span>Category</span><select name="category"><option value="">All categories</option>{% for category in categories %}<option value="{{ category }}" {% if request.args.get('category', '')|lower == category|lower %}selected{% endif %}>{{ category }}</option>{% endfor %}</select></label>
+    <button class="button button-full" type="submit">Apply filters</button>
+    <a class="reset-link" href="{{ url_for('workers' if kind == 'worker' else 'shops') }}">Clear filters</a>
+    <p class="filter-note">PIN-code and area matches are approximate listing matches, not GPS distance.</p>
+  </form>
+  <div class="results-column">
+    <div class="results-top"><span><strong>{{ records|length }}</strong> {{ "worker" if kind == "worker" else "shop" }}{{ "" if records|length == 1 else "s" }} found</span><span class="result-location">Listed local businesses</span></div>
+    {% if records %}
+      <div class="listing-grid listing-grid-results">
+      {% for record in records %}
+        <article class="provider-card result-card">
+          {% if kind == "worker" and record.image %}<img class="provider-avatar provider-image" src="{{ url_for('static', filename=record.image) }}" alt="Profile of {{ record.name }}">{% else %}<div class="provider-avatar avatar-{{ loop.index % 4 + 1 }}">{{ record.name[:1] }}</div>{% endif %}
+          <div class="provider-content"><span class="pill">{{ record.category }}</span><h3><a href="{{ url_for('worker_detail' if kind == 'worker' else 'shop_detail', record_id=record.id) }}">{{ record.name }}</a></h3><p>{{ record.experience if kind == "worker" else record.description|truncate(70) }}</p><div class="provider-location">⌖ {{ record.area }}, {{ record.city }} · {{ record.pincode }}</div><a class="card-cta" href="{{ url_for('worker_detail' if kind == 'worker' else 'shop_detail', record_id=record.id) }}">View details <span>→</span></a></div>
+        </article>
+      {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state"><span>⌕</span><h2>No matches just yet</h2><p>Try a nearby area or clear one of your filters. New local listings are added as providers join.</p><a class="button button-outline" href="{{ url_for('workers' if kind == 'worker' else 'shops') }}">Show all listings</a></div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

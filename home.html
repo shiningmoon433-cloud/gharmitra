@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}GharMitra — Your Local Home Services Partner{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="eyebrow-dot"></span> Your neighbourhood, your trusted help</span>
+      <h1>Make your home<br>feel <span>more like home.</span></h1>
+      <p class="hero-lede">Find skilled local professionals and reliable material shops for every fix, finish, and fresh start.</p>
+      <div class="hero-proof"><span class="proof-icon">✓</span> Local listings <span class="proof-separator">·</span> Clear details <span class="proof-separator">·</span> Easy discovery</div>
+    </div>
+    <div class="hero-art" aria-label="Illustration of a welcoming home">
+      <div class="sun"></div><div class="art-label label-one">A little help goes a long way</div>
+      <div class="house">
+        <div class="roof"></div><div class="house-body"><div class="window window-left"></div><div class="door"></div><div class="window window-right"></div></div>
+      </div>
+      <div class="plant plant-one">♧</div><div class="plant plant-two">♧</div>
+      <div class="art-label label-two"><span>✦</span> Built around your community</div>
+      <div class="art-scribble">⌁</div>
+    </div>
+  </div>
+</section>
+<section class="search-panel wrap">
+  <div class="search-heading"><span class="search-icon">⌕</span><div><h2>What does your home need?</h2><p>Search local professionals and shops by service and location.</p></div></div>
+  <form class="search-form" action="{{ url_for('workers') }}" method="get" data-search-form>
+    <label class="field"><span>Service</span><select name="category"><option value="">All services</option><option>Electrician</option><option>Plumber</option><option>Mistri</option><option>Carpenter</option><option>Painter</option><option>Construction worker</option></select></label>
+    <label class="field"><span>City</span><input name="city" placeholder="e.g. Jaipur"></label>
+    <label class="field"><span>Area or PIN code</span><input name="location" placeholder="e.g. Vaishali Nagar or 302021"></label>
+    <button class="button search-button" type="submit">Find local help <span aria-hidden="true">→</span></button>
+  </form>
+  <div class="search-foot"><span>⌖</span> Results use provider-listed areas and PIN codes — not real-time GPS distance. <button type="button" class="location-button" data-location-button>Use my location (optional)</button><span data-location-status class="location-status" aria-live="polite"></span></div>
+</section>
+<section class="section wrap">
+  <div class="section-heading"><div><span class="eyebrow">Good people, close by</span><h2>Find the right help for home</h2></div><a class="arrow-link" href="{{ url_for('categories') }}">Browse all categories <span>→</span></a></div>
+  <div class="category-grid">
+    <a class="category-card category-sage" href="{{ url_for('workers', category='Electrician') }}"><span class="category-symbol">ϟ</span><strong>Electricians</strong><span>Wiring, repairs &amp; more</span><span class="card-arrow">↗</span></a>
+    <a class="category-card category-peach" href="{{ url_for('workers', category='Plumber') }}"><span class="category-symbol">♧</span><strong>Plumbers</strong><span>Pipes, taps &amp; fittings</span><span class="card-arrow">↗</span></a>
+    <a class="category-card category-lavender" href="{{ url_for('workers', category='Mistri') }}"><span class="category-symbol">⌂</span><strong>Mistris</strong><span>Masonry &amp; tile work</span><span class="card-arrow">↗</span></a>
+    <a class="category-card category-sand" href="{{ url_for('shops') }}"><span class="category-symbol">▤</span><strong>Material shops</strong><span>Supplies for your project</span><span class="card-arrow">↗</span></a>
+  </div>
+</section>
+<section class="section soft-section">
+  <div class="wrap">
+    <div class="section-heading"><div><span class="eyebrow">A good place to start</span><h2>Local help, thoughtfully found</h2></div><p class="section-note">Use your neighbourhood or PIN code to explore who and what is nearby.</p></div>
+    <div class="feature-row">
+      <article class="feature-card"><span class="feature-number">01</span><div class="feature-icon">⌖</div><h3>Start with your area</h3><p>Search by city, locality, or PIN code to find listings in your neighbourhood.</p></article>
+      <article class="feature-card"><span class="feature-number">02</span><div class="feature-icon">✳</div><h3>Compare the details</h3><p>See services, experience, working hours, contact details, and location information.</p></article>
+      <article class="feature-card"><span class="feature-number">03</span><div class="feature-icon">♡</div><h3>Make it your own</h3><p>Save a professional for later or send a demo work request from your account.</p></article>
+    </div>
+  </div>
+</section>
+<section class="section wrap preview-section">
+  <div class="section-heading"><div><span class="eyebrow">Meet your neighbourhood</span><h2>Professionals to get you started</h2></div><a class="arrow-link" href="{{ url_for('workers') }}">See all workers <span>→</span></a></div>
+  <div class="listing-grid">
+    {% for record in workers if record.status == "approved" %}
+      {% if loop.index <= 3 %}
+      <article class="provider-card">
+        <div class="provider-avatar avatar-{{ loop.index }}">{{ record.name[:1] }}</div>
+        <div class="provider-content"><span class="pill">{{ record.category }}</span><h3><a href="{{ url_for('worker_detail', record_id=record.id) }}">{{ record.name }}</a></h3><p>{{ record.experience }} experience</p><div class="provider-location">⌖ {{ record.area }}, {{ record.city }}</div><a class="card-cta" href="{{ url_for('worker_detail', record_id=record.id) }}">View profile <span>→</span></a></div>
+      </article>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+<section class="cta-band"><div class="wrap cta-inner"><div><span class="eyebrow">Are you a local professional?</span><h2>Good work deserves to be found.</h2><p>Create a profile and help more people in your neighbourhood.</p></div><a href="{{ url_for('register') }}" class="button button-light">Join as a provider <span>→</span></a></div></section>
+{% endblock %}

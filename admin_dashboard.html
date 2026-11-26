@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Admin dashboard — GharMitra{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="wrap"><span class="eyebrow">Platform administration</span><h1>Moderation dashboard</h1><p>Review providers, accounts, requests, and contact messages.</p></div></section>
+<section class="wrap admin-layout">
+  <div class="admin-stat-grid">
+    <article><strong>{{ workers|length + shops|length }}</strong><span>Provider listings</span></article>
+    <article><strong>{{ users|length }}</strong><span>User accounts</span></article>
+    <article><strong>{{ requests|length }}</strong><span>Work requests</span></article>
+    <article><strong>{{ messages|length }}</strong><span>Contact messages</span></article>
+  </div>
+
+  <div class="admin-section">
+    <div class="dashboard-card-head"><h2>Worker listings</h2></div>
+    {% for record in workers %}
+      <article class="moderation-row">
+        <div><span class="status status-{{ record.status }}">{{ record.status|title }}</span><h3>{{ record.name }}</h3><p>{{ record.category }} · {{ record.area }}, {{ record.city }} · {{ record.mobile }}</p></div>
+        <form method="post" action="{{ url_for('admin_moderate') }}">
+          <input type="hidden" name="kind" value="worker">
+          <input type="hidden" name="record_id" value="{{ record.id }}">
+          {% if record.status != "approved" %}<button class="button button-small" type="submit" name="status" value="approved">Approve</button>{% endif %}
+          {% if record.status != "rejected" %}<button class="button button-outline button-small" type="submit" name="status" value="rejected">Reject</button>{% endif %}
+        </form>
+      </article>
+    {% endfor %}
+  </div>
+
+  <div class="admin-section">
+    <div class="dashboard-card-head"><h2>Shop listings</h2></div>
+    {% for record in shops %}
+      <article class="moderation-row">
+        <div><span class="status status-{{ record.status }}">{{ record.status|title }}</span><h3>{{ record.name }}</h3><p>{{ record.category }} · {{ record.owner_name }} · {{ record.area }}, {{ record.city }} · {{ record.mobile }}</p></div>
+        <form method="post" action="{{ url_for('admin_moderate') }}">
+          <input type="hidden" name="kind" value="shop">
+          <input type="hidden" name="record_id" value="{{ record.id }}">
+          {% if record.status != "approved" %}<button class="button button-small" type="submit" name="status" value="approved">Approve</button>{% endif %}
+          {% if record.status != "rejected" %}<button class="button button-outline button-small" type="submit" name="status" value="rejected">Reject</button>{% endif %}
+        </form>
+      </article>
+    {% endfor %}
+  </div>
+
+  <div class="admin-columns">
+    <article class="admin-section">
+      <h2>Recent work requests</h2>
+      {% for item in requests|reverse %}
+        <div class="admin-list-row"><strong>{{ item.worker_name }}</strong><p>{{ item.description }}</p><small>{{ item.status|title }} · {{ item.created_at }}</small></div>
+      {% else %}<p class="muted">No work requests yet.</p>{% endfor %}
+    </article>
+    <article class="admin-section">
+      <h2>Contact messages</h2>
+      {% for item in messages|reverse %}
+        <div class="admin-list-row"><strong>{{ item.name }} · {{ item.mobile }}</strong><p>{{ item.message }}</p><small>{{ item.created_at }}</small></div>
+      {% else %}<p class="muted">No messages yet.</p>{% endfor %}
+    </article>
+  </div>
+</section>
+{% endblock %}

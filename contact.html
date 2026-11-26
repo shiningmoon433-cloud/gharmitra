@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Contact us — GharMitra{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="wrap"><span class="eyebrow">We’re here to help</span><h1>Talk to GharMitra</h1><p>Questions, feedback, or a suggestion? Send our team a message.</p></div></section>
+<section class="wrap contact-layout"><div><h2>A little help goes a long way.</h2><p>Tell us what you need and we’ll get back to you. This demo form does not send email yet.</p><div class="contact-note"><span>⌖</span><div><strong>Built for local discovery</strong><p>GharMitra is starting in India, with sample listings in Jaipur.</p></div></div></div>
+<form class="form-card" method="post"><label class="field"><span>Your name</span><input name="name" required></label><label class="field"><span>Mobile number</span><input name="mobile" inputmode="numeric" required></label><label class="field"><span>Your message</span><textarea name="message" rows="5" required></textarea></label><button class="button" type="submit">Send message →</button></form></section>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Log in — GharMitra{% endblock %}
+{% block content %}
+<section class="page-hero"><div class="wrap"><span class="eyebrow">Welcome back</span><h1>Log in to GharMitra</h1><p>Manage your profile, requests, and saved professionals.</p></div></section>
+<section class="wrap auth-wrap"><form class="form-card auth-card" method="post">
+  <h2>Your account</h2><label class="field"><span>Mobile number</span><input name="mobile" type="tel" inputmode="numeric" pattern="[0-9]{10}" maxlength="10" autocomplete="tel" required></label>
+  <label class="field"><span>Password</span><input name="password" type="password" autocomplete="current-password" required></label>
+  <button class="button button-full" type="submit">Log in</button><p class="form-foot">New to GharMitra? <a href="{{ url_for('register') }}">Create an account</a></p>
+</form></section>
+{% endblock %}

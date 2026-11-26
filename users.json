@@ -1,0 +1,10 @@
+[
+  {
+    "id": "user-admin",
+    "name": "GharMitra Administrator",
+    "mobile": "9999999999",
+    "password_hash": "scrypt:32768:8:1$jXPYXLorOfTVZc2K$fd105422bfcc816298e5bcb9c6b943b38016415dee944c0217c05de93f44a246dd9a4a08900ee2a1e3c5dd1c3d15fda37ad2a654f900eaf4f798e7c6f0a9e23f",
+    "role": "admin",
+    "saved_workers": []
+  }
+]
